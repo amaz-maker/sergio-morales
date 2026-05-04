@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sergio Morales — SEIL 5000m</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:'Montserrat',sans-serif;background:#F0F4FF;color:#0A1628;font-size:14px}
+.hdr{background:linear-gradient(135deg,#7A1A00 0%,#993C1D 60%,#CC5A35 100%);color:white;padding:28px 20px 24px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+.hdr-top{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.hdr-logo{width:40px;height:40px;border-radius:8px;object-fit:cover}
+.hdr-brand{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.hdr-name{font-size:28px;font-weight:900;letter-spacing:-.01em;margin-bottom:4px}
+.hdr-sub{font-size:12px;color:rgba(255,255,255,.5);font-weight:500;margin-bottom:22px}
+.hdr-stats{display:flex;gap:24px;flex-wrap:wrap}
+.hdr-stat-val{font-size:15px;font-weight:700;color:white;display:block;margin-bottom:2px}
+.hdr-stat-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35)}
+.page{max-width:640px;margin:0 auto;padding:24px 16px 80px}
+.seance{border-radius:12px;border:1px solid #D6E2F5;background:white;box-shadow:0 2px 10px rgba(0,55,150,.07);overflow:hidden;margin-bottom:14px}
+.seance-toggle{width:100%;padding:14px 16px;background:linear-gradient(135deg,#993C1D,#CC5A35);display:flex;align-items:center;justify-content:space-between;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;text-align:left;transition:filter .15s}
+.seance-toggle:hover{filter:brightness(1.08)}
+.seance-toggle-info{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.th-dot{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:white;flex-shrink:0;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3)}
+.seance-title{font-size:14px;font-weight:800;color:white}
+.seance-sub{font-size:11px;color:rgba(255,255,255,.7);margin-top:1px}
+.seance-vol-tag{font-size:14px;font-weight:900;color:white;white-space:nowrap;margin-right:10px}
+.toggle-arrow{font-size:11px;color:rgba(255,255,255,.7);transition:transform .2s;flex-shrink:0}
+.toggle-arrow.open{transform:rotate(180deg)}
+.seance-body{display:none}
+.seance-body.open{display:block}
+.allures-card{background:#F8F3F0;border:1px solid #F0DDD5;border-radius:12px;padding:11px 13px;margin-bottom:10px}
+.slbl{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#B0BDDA;margin-bottom:8px}
+.allures-row{display:flex;gap:5px;flex-wrap:wrap}
+.ac{background:white;border:1px solid #E8D5CC;border-radius:6px;padding:6px 8px;text-align:center;flex:1;min-width:58px}
+.ac-code{font-size:9px;font-weight:800;display:block;margin-bottom:2px}
+.ac-val{font-size:12px;font-weight:800;color:#0A1628;display:block}
+.seance-header{padding:14px 16px;background:linear-gradient(135deg,#993C1D,#CC5A35);display:flex;align-items:center;justify-content:space-between}
+.seance-th{font-size:11px;font-weight:800;color:white;letter-spacing:.06em}
+.seance-vol{font-size:20px;font-weight:900;color:white}
+.seance-meta{font-size:11px;color:rgba(255,255,255,.65);margin-top:2px}
+.seance-content{padding:14px;background:#F0F4FF}
+.bloc{background:white;border:1px solid #D6E2F5;border-radius:12px;overflow:hidden;margin-bottom:8px}
+.bloc-head{padding:9px 13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #D6E2F5;background:#EAF1FF;flex-wrap:wrap}
+.bloc-tag{font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;padding:3px 8px;border-radius:20px;flex-shrink:0}
+.tag-ech{background:#E0F5EC;color:#0A6E40}
+.tag-pre{background:#FFF0D9;color:#7A4400}
+.tag-trav{background:#993C1D;color:white}
+.tag-trans{background:#F0E6FF;color:#4A1A8C}
+.tag-rac{background:#EAEDF5;color:#6B7DA8}
+.bloc-vol{font-size:12px;font-weight:700;color:#2C3E6B}
+.bloc-note{font-size:10px;font-weight:500;color:#6B7DA8}
+.serie{padding:9px 13px;border-bottom:1px solid #D6E2F5}
+.serie:last-child{border-bottom:none}
+.s-main{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.s-rep{font-size:13px;font-weight:700;color:#0A1628;white-space:nowrap;min-width:76px}
+.s-allure{font-size:12px;font-weight:800;white-space:nowrap}
+.s-mat{font-size:11px;font-weight:500;color:#6B7DA8}
+.s-chrono{display:flex;align-items:center;gap:5px;margin-top:4px;padding-left:84px;flex-wrap:wrap}
+.c-net{font-size:11px;font-weight:700;color:#993C1D}
+.c-sep{font-size:10px;color:#B0BDDA}
+.c-dp{font-size:11px;font-weight:600;color:#6B7DA8}
+.s-desc{margin-top:4px;padding-left:84px;font-size:10px;font-weight:500;color:#6B7DA8;line-height:1.6}
+.seg+.seg::before{content:' · ';color:#B0BDDA}
+.tour-label{padding:7px 13px;font-size:10px;font-weight:800;color:#993C1D;background:#FDF3EF;border-bottom:1px solid #F5DDD5;letter-spacing:.06em;text-transform:uppercase}
+.footer{text-align:center;padding:20px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#B0BDDA}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-top">
+    <img class="hdr-logo" src="data:image/jpeg;base64,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mqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5UooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKK7Twh8LvGXi4B9E0G7ktz/y8SgQxfg74B/DNAHF0V7lb/sx+PZEDSnSYj/da6JP6Kal/4Zf8c/8APfR//Ahv/iaAPCKK93/4Zf8AHP8Az30f/wACG/8AiaP+GX/HP/PfR/8AwIb/AOJoA8Ior3f/AIZf8c/899H/APAhv/iaP+GX/HP/AD30f/wIb/4mgDwiivd/+GX/ABz/AM99H/8AAhv/AImj/hl/xz/z30f/AMCG/wDiaAPCKK93/wCGX/HP/PfR/wDwIb/4mj/hl/xz/wA99H/8CG/+JoA8Ior3f/hl/wAc/wDPfR//AAIb/wCJo/4Zf8c/899H/wDAhv8A4mgDwiivd/8Ahl/xz/z30f8A8CG/+Jo/4Zf8c/8APfR//Ahv/iaAPCKK93/4Zf8AHP8Az30f/wACG/8AiaP+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AfoDr3x6+HmjwO/9upfSr0hsomlZj6A4C/mRXgnxK/aZ1nXLaWx8I2raNbPw107Brhl9BjhPwyfQivniigB80sk8zyzO0krsWZ2OSxPUk9zTKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//9k=" alt="AY">
+    <div class="hdr-brand">Séance individuelle</div>
+  </div>
+  <div class="hdr-name">Sergio Morales</div>
+  <div class="hdr-sub">Plan d'entraînement individuel · Bassin 50m · Nageur · Nv 7</div>
+  <div class="hdr-stats">
+    <div><span class="hdr-stat-val">5'00"</span><span class="hdr-stat-lbl">Réf. 400m</span></div>
+    <div><span class="hdr-stat-val">Nv 7</span><span class="hdr-stat-lbl">Niveau</span></div>
+    <div><span class="hdr-stat-val">Nageur</span><span class="hdr-stat-lbl">Profil</span></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- SÉANCE 1 — SEIL 5000m -->
+<div class="seance">
+  <button class="seance-toggle" onclick="toggleSeance(this)">
+    <div class="seance-toggle-info">
+      <div class="th-dot">SEIL</div>
+      <div>
+        <div class="seance-title">Séance 1 — Seuil</div>
+        <div class="seance-sub">Bassin 50m · Réf. 5'00" · Nageur</div>
+      </div>
+    </div>
+    <span class="seance-vol-tag">5 000m</span>
+    <span class="toggle-arrow open">▼</span>
+  </button>
+
+  <div class="seance-body open">
+    <div class="seance-content">
+
+    <!-- ALLURES -->
+    <div class="allures-card">
+      <div class="slbl">Allures individualisées</div>
+      <div class="allures-row">
+        <div class="ac"><span class="ac-code" style="color:#6B7DA8">V0</span><span class="ac-val">1'32"</span></div>
+        <div class="ac"><span class="ac-code" style="color:#00C060">V1</span><span class="ac-val">1'25"</span></div>
+        <div class="ac"><span class="ac-code" style="color:#0077CC">V2</span><span class="ac-val">1'22"</span></div>
+        <div class="ac"><span class="ac-code" style="color:#FF6B35">A1500</span><span class="ac-val">1'20"</span></div>
+        <div class="ac"><span class="ac-code" style="color:#FF3A00">A800</span><span class="ac-val">1'17"</span></div>
+      </div>
+    </div>
+
+    <!-- ÉCHAUFFEMENT 900m -->
+    <div class="bloc">
+      <div class="bloc-head">
+        <span class="bloc-tag tag-ech">Échauffement</span>
+        <span class="bloc-vol">900m</span>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">1×300m</span>
+          <span class="s-mat">ACH · NC · V0</span>
+        </div>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">4×[100m CR V0 + 50m KICK V2]</span>
+          <span class="s-mat">PALM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRÉ-SÉRIE 300m -->
+    <div class="bloc">
+      <div class="bloc-head">
+        <span class="bloc-tag tag-pre">Pré-série</span>
+        <span class="bloc-vol">300m</span>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">6×50m</span>
+          <span class="s-allure" style="color:#00C060">V1</span>
+          <span class="s-mat">/ <span style="color:#FF6B35;font-weight:800">A1500</span> alternées · CR · NC</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-net">V1 → 43"</span>
+          <span class="c-sep">·</span>
+          <span class="c-net">A1500 → 40"</span>
+          <span class="c-sep">·</span>
+          <span class="c-dp">dp 1'00"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOC 1 — 2200m — 3 tours évolutifs -->
+    <div class="bloc">
+      <div class="bloc-head">
+        <span class="bloc-tag tag-trav">Bloc de travail 1</span>
+        <span class="bloc-vol">2 200m</span>
+        <span class="bloc-note">Seuil crawl · 3 tours évolutifs en matériel et intensité</span>
+      </div>
+
+      <div class="tour-label">Tour 1 — NC · entrée seuil</div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">4×200m</span>
+          <span class="s-allure" style="color:#00C060">V1</span>
+          <span class="s-mat">CR · NC</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-net">2'50"</span>
+          <span class="c-sep">·</span>
+          <span class="c-dp">dp 3'15"</span>
+        </div>
+      </div>
+
+      <div class="tour-label">Tour 2 — PALM · sandwich seuil</div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">1×400m</span>
+          <span class="s-allure" style="color:#00C060">V1</span>
+          <span class="s-mat">CR · PALM</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 30"</span>
+        </div>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">1×200m</span>
+          <span class="s-allure" style="color:#FF6B35">A1500</span>
+          <span class="s-mat">CR · PALM</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 30"</span>
+        </div>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">1×200m</span>
+          <span class="s-allure" style="color:#00C060">V1</span>
+          <span class="s-mat">CR · PALM</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 30"</span>
+        </div>
+      </div>
+
+      <div class="tour-label">Tour 3 — PULL+PLAQ · sandwich asymétrique</div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">1×200m</span>
+          <span class="s-allure" style="color:#00C060">V1</span>
+          <span class="s-mat">CR · PULL+PLAQ</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 30"</span>
+        </div>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">1×200m</span>
+          <span class="s-allure" style="color:#FF6B35">A1500</span>
+          <span class="s-mat">CR · PULL+PLAQ</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 30"</span>
+        </div>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">1×100m</span>
+          <span class="s-allure" style="color:#00C060">V1</span>
+          <span class="s-mat">CR · PULL+PLAQ</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 20"</span>
+        </div>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">1×100m</span>
+          <span class="s-allure" style="color:#FF6B35">A1500</span>
+          <span class="s-mat">CR · PULL+PLAQ</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 30"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRANSITION 200m -->
+    <div class="bloc">
+      <div class="bloc-head">
+        <span class="bloc-tag tag-trans">Transition</span>
+        <span class="bloc-vol">200m</span>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">1×200m</span>
+          <span class="s-allure" style="color:#6B7DA8">V0</span>
+          <span class="s-mat">DOS · NC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOC 2 — 1200m — Pyramide 4N en distance -->
+    <div class="bloc">
+      <div class="bloc-head">
+        <span class="bloc-tag tag-trav">Bloc de travail 2</span>
+        <span class="bloc-vol">1 200m</span>
+        <span class="bloc-note">Seuil 4 nages · Pyramide en distance · PAP / DOS / BRA / CR</span>
+      </div>
+
+      <div class="tour-label">Tour 1 — 4×50m PALM · 200m</div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">4×50m</span>
+          <span class="s-allure" style="color:#FF6B35">A1500</span>
+          <span class="s-mat">PAP / DOS / BRA / CR · PALM</span>
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 20"</span>
+        </div>
+      </div>
+
+      <div class="tour-label">Tour 2 — 4×100m PALM · 400m</div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">4×100m</span>
+          <span class="s-mat">50m <span style="color:#FF6B35;font-weight:800">A1500</span> + 50m NC* <span style="color:#6B7DA8;font-weight:800">V0</span> souple · PAP / DOS / BRA / CR · PALM</span>
+        </div>
+        <div class="s-desc">
+          NC* = nage au choix · 50m imposé puis 50m souple
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 20"</span>
+        </div>
+      </div>
+
+      <div class="tour-label">Tour 3 — 4×150m PALM · 600m</div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">4×150m</span>
+          <span class="s-mat">50m <span style="color:#FF6B35;font-weight:800">A1500</span> + 100m NC* <span style="color:#6B7DA8;font-weight:800">V0</span> souple · PAP / DOS / BRA / CR · PALM</span>
+        </div>
+        <div class="s-desc">
+          NC* = nage au choix · 50m imposé puis 100m souple
+        </div>
+        <div class="s-chrono">
+          <span class="c-dp">repos 20"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RETOUR AU CALME 200m -->
+    <div class="bloc">
+      <div class="bloc-head">
+        <span class="bloc-tag tag-rac">Retour au calme</span>
+        <span class="bloc-vol">200m</span>
+      </div>
+      <div class="serie">
+        <div class="s-main">
+          <span class="s-rep">4×50m</span>
+          <span class="s-allure" style="color:#6B7DA8">V0</span>
+          <span class="s-mat">ACH · PULL</span>
+        </div>
+        <div class="s-chrono"><span class="c-dp">repos 15"</span></div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+  <!-- /seance-body -->
+
+  <!-- ANALYSE -->
+  <div style="border-top:1px solid #1E2A40;background:#0B0F1A">
+    <button onclick="toggleAnalyse(this)" style="width:100%;padding:13px 16px;background:#0B0F1A;display:flex;align-items:center;justify-content:space-between;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;text-align:left">
+      <div style="font-size:12px;font-weight:700;color:white">Analyse de la séance</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="font-size:10px;font-weight:500;color:rgba(255,255,255,.55)">Volume · Allures · Matériel</div>
+        <span class="analyse-arrow" style="font-size:10px;color:rgba(255,255,255,.55);transition:transform .2s">▼</span>
+      </div>
+    </button>
+
+    <div class="analyse-body" style="display:none">
+    <div style="padding:14px;background:#0B0F1A;display:flex;flex-direction:column;gap:12px">
+
+    <!-- KPIs -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <div style="background:#141927;border:1px solid #1E2A40;border-radius:8px;padding:12px 10px;text-align:center">
+        <span style="font-size:18px;font-weight:900;color:#FF8A65;display:block;margin-bottom:3px">5 000m</span>
+        <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#4A6080">Volume total</span>
+      </div>
+      <div style="background:#141927;border:1px solid #1E2A40;border-radius:8px;padding:12px 10px;text-align:center">
+        <span style="font-size:18px;font-weight:900;color:#FF8A65;display:block;margin-bottom:3px">3 100m</span>
+        <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#4A6080">Travail effectif</span>
+      </div>
+      <div style="background:#141927;border:1px solid #1E2A40;border-radius:8px;padding:12px 10px;text-align:center">
+        <span style="font-size:18px;font-weight:900;color:#FF8A65;display:block;margin-bottom:3px">25.0%</span>
+        <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#4A6080">Allure seuil</span>
+      </div>
+    </div>
+
+    <!-- VOLUME PAR BLOC -->
+    <div style="background:#141927;border:1px solid #1E2A40;border-radius:8px;padding:14px">
+      <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#4A6080;margin-bottom:12px">Volume par bloc — mètres</div>
+      <svg viewBox="0 0 440 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+        <defs>
+          <linearGradient id="gB0" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#888780"/><stop offset="100%" stop-color="#4a4a44"/></linearGradient>
+          <linearGradient id="gB1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFB871"/><stop offset="100%" stop-color="#7A4400"/></linearGradient>
+          <linearGradient id="gB2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#993C1D"/><stop offset="100%" stop-color="#5d0000"/></linearGradient>
+          <linearGradient id="gB3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A876D9"/><stop offset="100%" stop-color="#4A1A8C"/></linearGradient>
+          <linearGradient id="gB4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#993C1D"/><stop offset="100%" stop-color="#5d0000"/></linearGradient>
+          <linearGradient id="gB5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9DAFCF"/><stop offset="100%" stop-color="#3E5179"/></linearGradient>
+        </defs>
+        <line x1="46" y1="136" x2="436" y2="136" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="139" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">0</text>
+        <line x1="46" y1="107" x2="436" y2="107" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="110" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">550</text>
+        <line x1="46" y1="78" x2="436" y2="78" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="81" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">1 100</text>
+        <line x1="46" y1="49" x2="436" y2="49" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="52" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">1 650</text>
+        <line x1="46" y1="20" x2="436" y2="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="23" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">2 200</text>
+
+        <!-- Barres : max=2200, hauteur max=116 -->
+        <!-- ECH 900m : h = 47.5 -->
+        <rect x="55" y="88.5" width="55" height="47.5" rx="3" fill="url(#gB0)"/>
+        <text x="82.5" y="83.5" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">900</text>
+        <text x="82.5" y="148" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">ECH</text>
+
+        <!-- PRÉ 300m : h = 15.8 -->
+        <rect x="120" y="120.2" width="55" height="15.8" rx="3" fill="url(#gB1)"/>
+        <text x="147.5" y="115.2" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">300</text>
+        <text x="147.5" y="148" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">PRÉ</text>
+
+        <!-- B1 2200m : h = 116 -->
+        <rect x="185" y="20" width="55" height="116" rx="3" fill="url(#gB2)"/>
+        <text x="212.5" y="15" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">2 200</text>
+        <text x="212.5" y="148" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">BLOC 1</text>
+
+        <!-- TRANS 200m : h = 10.5 -->
+        <rect x="250" y="125.5" width="55" height="10.5" rx="3" fill="url(#gB3)"/>
+        <text x="277.5" y="120.5" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">200</text>
+        <text x="277.5" y="148" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">TRANS</text>
+
+        <!-- B2 1200m : h = 63.3 -->
+        <rect x="315" y="72.7" width="55" height="63.3" rx="3" fill="url(#gB4)"/>
+        <text x="342.5" y="67.7" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">1 200</text>
+        <text x="342.5" y="148" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">BLOC 2</text>
+
+        <!-- RAC 200m : h = 10.5 -->
+        <rect x="380" y="125.5" width="55" height="10.5" rx="3" fill="url(#gB5)"/>
+        <text x="407.5" y="120.5" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">200</text>
+        <text x="407.5" y="148" text-anchor="middle" font-size="8" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">RAC</text>
+      </svg>
+    </div>
+
+    <!-- RÉPARTITION ALLURES -->
+    <div style="background:#141927;border:1px solid #1E2A40;border-radius:8px;padding:14px">
+      <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#4A6080;margin-bottom:12px">Répartition des allures</div>
+      <svg viewBox="0 0 440 168" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+        <defs>
+          <linearGradient id="gA0" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9DAFCF"/><stop offset="100%" stop-color="#3E5179"/></linearGradient>
+          <linearGradient id="gA1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00C060"/><stop offset="100%" stop-color="#008e2e"/></linearGradient>
+          <linearGradient id="gA2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0077CC"/><stop offset="100%" stop-color="#00459a"/></linearGradient>
+          <linearGradient id="gA3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF6B35"/><stop offset="100%" stop-color="#cd3903"/></linearGradient>
+        </defs>
+        <line x1="46" y1="136" x2="436" y2="136" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="139" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">0</text>
+        <line x1="46" y1="107" x2="436" y2="107" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="110" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">500</text>
+        <line x1="46" y1="78" x2="436" y2="78" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="81" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">1 000</text>
+        <line x1="46" y1="49" x2="436" y2="49" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="52" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">1 500</text>
+        <line x1="46" y1="20" x2="436" y2="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="23" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">2 000</text>
+
+        <!-- max=2000, hauteur max=116 -->
+        <!-- V0 1700m : h = 1700/2000 * 116 = 98.6 -->
+        <rect x="80" y="37.4" width="70" height="98.6" rx="3" fill="url(#gA0)"/>
+        <text x="115" y="32.4" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">34.0%</text>
+        <text x="115" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">V0</text>
+        <text x="115" y="159" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Montserrat,sans-serif">1 700m</text>
+
+        <!-- V1 1850m : h = 107.3 -->
+        <rect x="160" y="28.7" width="70" height="107.3" rx="3" fill="url(#gA1)"/>
+        <text x="195" y="23.7" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">37.0%</text>
+        <text x="195" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">V1</text>
+        <text x="195" y="159" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Montserrat,sans-serif">1 850m</text>
+
+        <!-- V2 200m : h = 11.6 -->
+        <rect x="240" y="124.4" width="70" height="11.6" rx="3" fill="url(#gA2)"/>
+        <text x="275" y="119.4" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">4.0%</text>
+        <text x="275" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">V2</text>
+        <text x="275" y="159" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Montserrat,sans-serif">200m</text>
+
+        <!-- A1500 1250m : h = 72.5 -->
+        <rect x="320" y="63.5" width="70" height="72.5" rx="3" fill="url(#gA3)"/>
+        <text x="355" y="58.5" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">25.0%</text>
+        <text x="355" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">A1500</text>
+        <text x="355" y="159" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Montserrat,sans-serif">1 250m</text>
+      </svg>
+    </div>
+
+    <!-- RÉPARTITION MATÉRIEL -->
+    <div style="background:#141927;border:1px solid #1E2A40;border-radius:8px;padding:14px">
+      <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#4A6080;margin-bottom:12px">Répartition du matériel</div>
+      <svg viewBox="0 0 440 168" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+        <defs>
+          <linearGradient id="gM0" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFB871"/><stop offset="100%" stop-color="#7A4400"/></linearGradient>
+          <linearGradient id="gM1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF8B5F"/><stop offset="100%" stop-color="#A53D1A"/></linearGradient>
+          <linearGradient id="gM2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7AABE8"/><stop offset="100%" stop-color="#1E5DA8"/></linearGradient>
+          <linearGradient id="gM3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C58FE5"/><stop offset="100%" stop-color="#7A3CA3"/></linearGradient>
+        </defs>
+        <line x1="46" y1="136" x2="436" y2="136" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="139" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">0</text>
+        <line x1="46" y1="107" x2="436" y2="107" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="110" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">750</text>
+        <line x1="46" y1="78" x2="436" y2="78" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="81" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">1 500</text>
+        <line x1="46" y1="49" x2="436" y2="49" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="52" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">2 250</text>
+        <line x1="46" y1="20" x2="436" y2="20" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+        <text x="42" y="23" text-anchor="end" font-size="8" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">3 000</text>
+
+        <!-- max=3000, hauteur max=116 -->
+        <!-- NC 1600m : h = 61.9 -->
+        <rect x="80" y="74.1" width="70" height="61.9" rx="3" fill="url(#gM0)"/>
+        <text x="115" y="69.1" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">32.0%</text>
+        <text x="115" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">NC</text>
+        <text x="115" y="159" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Montserrat,sans-serif">1 600m</text>
+
+        <!-- PALM 2600m : h = 100.5 -->
+        <rect x="160" y="35.5" width="70" height="100.5" rx="3" fill="url(#gM1)"/>
+        <text x="195" y="30.5" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">52.0%</text>
+        <text x="195" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">PALM</text>
+        <text x="195" y="159" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Montserrat,sans-serif">2 600m</text>
+
+        <!-- PULL 200m : h = 7.7 -->
+        <rect x="240" y="128.3" width="70" height="7.7" rx="3" fill="url(#gM2)"/>
+        <text x="275" y="123.3" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">4.0%</text>
+        <text x="275" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">PULL</text>
+        <text x="275" y="159" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Montserrat,sans-serif">200m</text>
+
+        <!-- PULL+PLAQ 600m : h = 23.2 -->
+        <rect x="320" y="112.8" width="70" height="23.2" rx="3" fill="url(#gM3)"/>
+        <text x="355" y="107.8" text-anchor="middle" font-size="9" font-weight="800" fill="white" font-family="Montserrat,sans-serif">12.0%</text>
+        <text x="355" y="148" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.55)" font-family="Montserrat,sans-serif">PULL+PLAQ</text>
+        <text x="355" y="159" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Montserrat,sans-serif">600m</text>
+      </svg>
+    </div>
+
+    </div>
+    </div>
+    <!-- /analyse-body -->
+  </div>
+  <!-- /analyse container -->
+</div>
+<!-- /seance -->
+
+
+<!-- SÉANCE 2 — AERO 5000m (à compléter) -->
+<div class="seance">
+  <button class="seance-toggle" onclick="toggleSeance(this)" style="background:linear-gradient(135deg,#003D8A,#0A84FF)">
+    <div class="seance-toggle-info">
+      <div class="th-dot">AERO</div>
+      <div>
+        <div class="seance-title">Séance 2 — Aéro Long</div>
+        <div class="seance-sub">Bassin 50m · Réf. 5'00" · Nageur</div>
+      </div>
+    </div>
+    <span class="seance-vol-tag">5 000m</span>
+    <span class="toggle-arrow">▼</span>
+  </button>
+  <div class="seance-body">
+    <div class="seance-content">
+      <div style="text-align:center;padding:30px 20px;color:#6B7DA8;font-size:12px;font-style:italic">À compléter</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SÉANCE 3 — SEIL 5000m (à compléter) -->
+<div class="seance">
+  <button class="seance-toggle" onclick="toggleSeance(this)">
+    <div class="seance-toggle-info">
+      <div class="th-dot">SEIL</div>
+      <div>
+        <div class="seance-title">Séance 3 — Seuil</div>
+        <div class="seance-sub">Bassin 50m · Réf. 5'00" · Nageur</div>
+      </div>
+    </div>
+    <span class="seance-vol-tag">5 000m</span>
+    <span class="toggle-arrow">▼</span>
+  </button>
+  <div class="seance-body">
+    <div class="seance-content">
+      <div style="text-align:center;padding:30px 20px;color:#6B7DA8;font-size:12px;font-style:italic">À compléter</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SÉANCE 4 — AERL 5000m (à compléter) -->
+<div class="seance">
+  <button class="seance-toggle" onclick="toggleSeance(this)" style="background:linear-gradient(135deg,#0F6E56,#1D9E75)">
+    <div class="seance-toggle-info">
+      <div class="th-dot">AERL</div>
+      <div>
+        <div class="seance-title">Séance 4 — Aéro Light</div>
+        <div class="seance-sub">Bassin 50m · Réf. 5'00" · Nageur</div>
+      </div>
+    </div>
+    <span class="seance-vol-tag">5 000m</span>
+    <span class="toggle-arrow">▼</span>
+  </button>
+  <div class="seance-body">
+    <div class="seance-content">
+      <div style="text-align:center;padding:30px 20px;color:#6B7DA8;font-size:12px;font-style:italic">À compléter</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SÉANCE 5 — AERO 5000m (à compléter) -->
+<div class="seance">
+  <button class="seance-toggle" onclick="toggleSeance(this)" style="background:linear-gradient(135deg,#003D8A,#0A84FF)">
+    <div class="seance-toggle-info">
+      <div class="th-dot">AERO</div>
+      <div>
+        <div class="seance-title">Séance 5 — Aéro Long</div>
+        <div class="seance-sub">Bassin 50m · Réf. 5'00" · Nageur</div>
+      </div>
+    </div>
+    <span class="seance-vol-tag">5 000m</span>
+    <span class="toggle-arrow">▼</span>
+  </button>
+  <div class="seance-body">
+    <div class="seance-content">
+      <div style="text-align:center;padding:30px 20px;color:#6B7DA8;font-size:12px;font-style:italic">À compléter</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Sergio Morales · Plan d'entraînement</div>
+</div>
+
+<script>
+function toggleSeance(btn){
+  const body = btn.nextElementSibling;
+  const arrow = btn.querySelector('.toggle-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+function toggleAnalyse(btn){
+  const body = btn.nextElementSibling;
+  const arrow = btn.querySelector('.analyse-arrow');
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (arrow) arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+</script>
+</body>
+</html>
